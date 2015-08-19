@@ -5,6 +5,9 @@
 	<title><?= $this->e($title) ?></title>
 
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/reset.css') ?>">
+	<link rel="stylesheet" href="<?= $this->assetUrl('css/style.css') ?>">
+	<link rel="stylesheet" href="/docs/api/css/font-awesome.min.css">
+
 </head>
 <body>
 	<div class="container">
