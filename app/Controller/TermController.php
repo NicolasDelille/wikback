@@ -67,9 +67,36 @@ class TermController extends Controller
 			}
 		}
 		$term = $termManager->find("$id");
-		debug($term);
+		
 		//passer le terme à la vue
 		$this->show('term/edit_term', ['term' => $term]);
+	}
+
+	public function changeWotd()
+	{
+		$termManager = new \Manager\TermManager();
+		$wotd = $termManager->getCurrentWordOfTheDay();
+		
+		//Sélectionner aléatoirement un terme où le wotd est égal à 0
+		$newWotd = $termManager->getRandomWordOfTheDay();
+		
+		$dataWotd = array('is_wotd' => 0);
+		$dataNewWotd = array('is_wotd' => 1);
+
+		$termManager->update($dataWotd, $wotd['id']);
+		$termManager->update($dataNewWotd, $newWotd['id']);
+
+		$this->redirectToRoute('show_wotd');
+
+	}
+	public function showWotd()
+	{
+		$termManager = new \Manager\TermManager();
+		$wotd = $termManager->getCurrentWordOfTheDay();
+
+
+		$this->show('term/show_wotd', ['wotd' => $wotd]);
+
 	}
 
 }
