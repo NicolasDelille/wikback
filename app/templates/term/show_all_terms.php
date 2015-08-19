@@ -20,8 +20,10 @@
 				<td><?= $term['id'] ?></td>
 				<td><?= $this->e($term['name']) ?></td>
 				<td><?= $this->e($term['modifiedDate']) ?></td>
-				<td><a id="modify" href=""><i class="fa fa-wrench fa-2x"></i></a>  <a id="erase" href=""><i class="fa fa-trash-o fa-2x"></i>
-</a></td>
+				<td>
+					<a href="<?= $this->url('delete_terms', ['id' => $term['id']])?>" title="Effacer le terme">Effacer<i class="fa fa-trash"></i></a>
+					
+				</td>
 			</tr>
 	
 
