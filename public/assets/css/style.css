@@ -1,18 +1,12 @@
 table, thead, tbody, tr, th, td{
-	border:1px solid #000;
-	border-collapse: collapse;
 	text-align: center;
 	padding: 5px;
-	line-height: 45px;
 	-webkit-transition: 0.3s;
 	-o-transition: 0.3s;
 	transition: 0.3s;
 	cursor: pointer;
 }
-table{
-	width: 600px;
-	margin: 0 auto;
-}
+
 tbody tr:nth-child(odd){
 	background-color: #ccc;
 }
