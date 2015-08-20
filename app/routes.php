@@ -6,4 +6,5 @@
 		['GET|POST', '/admin/termes/modification/[i:id]/', 'Term#edit', 'edit_term'],
 		['GET', '/admin/termes/changer-mdj/', 'Term#changeWotd', 'change_wotd'],
 		['GET', '/admin/termes/montrer-mdj/', 'Term#showWotd', 'show_wotd'],
+		['GET|POST', '/admin/administrateurs/inscription/', 'User#register', 'register_administrator'],
 	);

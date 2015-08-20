@@ -1,8 +1,11 @@
 <?php $this->layout('layout', ['title' => 'Tous les termes !']) ?>
 
 <?php $this->start('main_content') ?>
+	
 	<div>
 		<a class="btn btn-large btn-info" href="<?= $this->url('show_wotd') ?>" title="Voir le mot du jour">Voir le mot du jour</a>
+	
+		<a class="btn btn-large btn-success" href="<?= $this->url('register_administrator')?>">Ajouter un administrateur</a>
 	</div>
 	
 	<h2>Liste des termes</h2>
