@@ -1,16 +1,31 @@
 <?php $this->layout('layout', ['title' => 'Tous les termes !']) ?>
 
 <?php $this->start('main_content') ?>
+
+	<div class="row-fluid">
+		<div class="span8">
+			<div class="span6">
+				<p class="lead">Bienvenue <?= $w_user['username']?> !</p>
+			</div>
+		</div>
+		<div class="span4">
+			<div class="span1">
+				<a class="btn btn-mini btn-danger" href="<?= $this->url('logout', ['id' => $w_user['id']])?>" title="Déconnexion">Se déconnecter</a>
+			</div>
+		</div>
+	</div>
 	
-	<div>
-		<a class="btn btn-large btn-info" href="<?= $this->url('show_wotd') ?>" title="Voir le mot du jour">Voir le mot du jour</a>
-	
-		<a class="btn btn-large btn-success" href="<?= $this->url('register_administrator')?>">Ajouter un administrateur</a>
+	<div class="row-fluid">
+		<div class="span6">
+			<a href="<?= $this->url('show_wotd') ?>" title="Voir le mot du jour">Voir le mot du jour</a>
+			<a href="<?= $this->url('register_administrator')?>">Ajouter un administrateur</a>
+		</div>
 	</div>
 	
 	<h2>Liste des termes</h2>
 
-
+	<div class="span12">
+		
 	<table>
 		<thead>
 			<tr>
@@ -39,4 +54,5 @@
 		</tbody>	
 
 	</table>
+	</div>
 <?php $this->stop('main_content') ?>
