@@ -3,62 +3,113 @@
 namespace Controller;
 
 use \W\Controller\Controller;
-
+use \W\Security\AuthentificationManager;
+use \Manager\UserManager;
 
 class UserController extends Controller
 {
+	public function login()
+	{
+		$authentificationManager = new AuthentificationManager();
+		$userManager = new UserManager();
+		$username = "";
+		$password = "";
+		$usernameError = "";
+		$passwordError = "";
+
+		if (!empty($_POST)) {
+
+			foreach ($_POST as $k => $v) {
+				$$k = trim(strip_tags($v));
+			}
+
+			// Validation des données
+			if (empty($username)) {
+					$usernameError = "Veuillez indiquer un pseudo !";
+			}
+
+			if (empty($password)) {
+					$passwordError = "Veuillez entrer un mot de passe !";
+			}
+				
+			if ($usernameError == "" && $passwordError == "") {
+			
+				$id = $authentificationManager->isValidLoginInfo($username,$password);
+
+				if ($id) {
+					// Récupération des infos de l'utilisateur
+					$user = $userManager->find($id);
+
+					// Attribution des infos de l'utilisateur à la session
+					$authentificationManager->logUserIn($user);
+
+					$this->redirectToRoute('show_all_terms');
+				}
+
+			}
+
+			$dataToPassToTheView = [
+				'username' => $username,
+				'usernameError' => $usernameError,
+				'passwordError' => $passwordError,
+			];
+
+			$this->show('user/login', $dataToPassToTheView);
+
+
+		}
+
+		$this->show('user/login');
+	}
+	public function logout()
+	{
+		
+	}
 	public function register()
 	{
-		$userManager = new \Manager\UserManager();
+		$userManager = new UserManager();
 
 		$usernameError ="";
 		$emailError = "";
 		$passwordError = "";
 		
 		if (!empty($_POST)) {
-			// debug($_POST);
-			// ninja shit
+			
 			foreach ($_POST as $k => $v) {
 				$$k = trim(strip_tags($v));
 			}
-
-			$dataError = array(
-				'usernameError' => $usernameError,
-				'emailError' => $emailError,
-				'passwordError' => $passwordError,
-				);
 
 			// validation
 
 				// username assez long
 				if (empty($username)) {
-					$dataError['usernameError'] = "Veuillez indiquer un pseudo !";
+					$usernameError = "Veuillez indiquer un pseudo !";
 				}
 				
 
 				else if (strlen($username) < 4) {
-					$dataError['usernameError'] = "Nom d'utilisateur trop court !";
+					$usernameError = "Nom d'utilisateur trop court !";
 				}
 
 				// email valide
 				if (empty($email)) {
-					$dataError['emailError'] = "Veuillez entrer une adresse email !";
+					$emailError = "Veuillez entrer une adresse email !";
 				}
 
 				else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-					$dataError['emailError'] = "L'adresse email n'est pas valide";
+					$emailError = "L'adresse email n'est pas valide";
 				}
 
 				// mot de passe valide
 				if (empty($password)) {
-					$dataError['passwordError'] = "Veuillez entrer un mot de passe !";
+					$passwordError = "Veuillez entrer un mot de passe !";
 				}
 				else if (strlen($password) <= 6) {
-					$dataError['passwordError'] = "Veuillez entrer un mot de passe d'au moins 7 caractères !";
+					$passwordError = "Veuillez entrer un mot de passe d'au moins 7 caractères !";
 				}
 				// mots de passe correspondent ?
 				if ($password != $password_again) {
-					$dataError['passwordError'] = "Les mots de passe que vous avez indiqué ne correspondent pas !";
+					$passwordError = "Les mots de passe que vous avez indiqué ne correspondent pas !";
 				}
 				
 				
@@ -66,24 +117,26 @@ class UserController extends Controller
 
 
 
-				if ($dataError['usernameError'] == "" && $dataError['emailError'] == "" && $dataError['passwordError'] == "") {
+				if ($usernameError == "" && $emailError == "" && $passwordError == "") {
 				
 				// hacher le mot de passe
-				$password_hashed =  password_hash($password, PASSWORD_DEFAULT);
-				$dataValue = array(
-					'username' => $username,
-					'email' => $email,
-					'password' => $password_hashed,
-					);
+					$password_hashed =  password_hash($password, PASSWORD_DEFAULT);
+					$newAdmin = [
+						'username' => $username,
+						'email' => $email,
+						'password' => $password_hashed,
+						'role' => 'admin',
+						'date_created' => date('Y-m-d H:i:s'),
+						'date_modified' => date('Y-m-d H:i:s'),
+						];
 
-				
 				// insérer en bdd
-					$insertSuccess = $userManager->insert($dataValue);
+						$insertSuccess = $userManager->insert($newAdmin);
 
 				// afficher bravo ou rediriger
-					if ($insertSuccess) {
-						$this->redirectToRoute('show_all_terms');
-					}
+						if ($insertSuccess) {
+							$this->redirectToRoute('show_all_terms');
+						}
 
 				}
 				
@@ -91,15 +144,16 @@ class UserController extends Controller
 				else {
 
 				// envoyer les erreurs et les données soumises à la vue
-					$dataValue = array(
+					$dataToPassToTheView = [
 					'username' => $username,
 					'email' => $email,
-					'password' => $password,
-					'password_again' => $password_again,
-					);
+					'usernameError' => $usernameError,
+					'emailError' => $emailError,
+					'passwordError' => $passwordError
+					];
 					
 					
-					$this->show('user/register_administrator', ['dataError' => $dataError, 'dataValue' => $dataValue]);
+					$this->show('user/register_administrator', $dataToPassToTheView);
 				}
 		}
 

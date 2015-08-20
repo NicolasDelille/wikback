@@ -1,6 +1,9 @@
 <?php
 	
 	$w_routes = array(
+		['GET|POST', '/admin/connexion/', 'User#login', 'login'],
+		['GET|POST', '/admin/deconnexion/', 'User#logout', 'logout'],
+
 		['GET', '/admin/termes/', 'Term#showAll', 'show_all_terms'],
 		['GET', '/admin/termes/suppression/[i:id]/', 'Term#delete', 'delete_terms'],
 		['GET|POST', '/admin/termes/modification/[i:id]/', 'Term#edit', 'edit_term'],

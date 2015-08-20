@@ -6,44 +6,20 @@
 	<form action="" method="POST">
 		<div class="form-group">
 			<label for="username">Entrez un pseudo</label>
-			<input type="text" name="username" placeholder="Pseudo" 
-			<?php 
-				if (!empty($dataValue['username'])) {
-					echo 'value = "' . $dataValue['username'] . '"';
-				}
-			?>
-			> 
-			<?php
-			if (!empty($dataError['usernameError'])) {
-				echo '<p class="text-error">'.$dataError['usernameError'].'</p>';
-			}
-			?>
+			<input type="text" name="username" placeholder="Pseudo" value="<?= (!empty($_POST) ? $username : "") ?>">
+			<?=(!empty($_POST) ? '<p class="text-error">' . $usernameError . '</p>' : "")?>
 		</div>
 		
 		<div class="form-group">
 			<label for="email">Entrez un email valide</label>
-			<input type="email" name="email" placeholder="Email"
-			<?php 
-				if (!empty($dataValue['email'])) {
-					echo 'value = "' . $dataValue['email'] . '"';
-				}
-			?>
-			> 
-			<?php
-			if (!empty($dataError['emailError'])) {
-				echo '<p class="text-error">'.$dataError['emailError'].'</p>';
-			}
-			?>
+			<input type="email" name="email" placeholder="Email" value="<?= (!empty($_POST) ? $email : "") ?>">
+			<?=(!empty($_POST) ? '<p class="text-error">' . $emailError . '</p>' : "")?>
 		</div>
 			
 		<div class="form-group">
 			<label for="password">Entrez un mot de passe</label>
 			<input type="password" name="password" placeholder="Mot de passe">
-			<?php
-			if (!empty($dataError['passwordError'])) {
-				echo '<p class="text-error">'.$dataError['passwordError'].'</p>';
-			}
-			?>
+			<?=(!empty($_POST) ? '<p class="text-error">' . $passwordError . '</p>' : "")?>
 		</div>
 			
 		<div class="form-group">
