@@ -13,7 +13,7 @@
 <body>
 	<div class="container">
 		<header>
-			<h1>W :: <?= $this->e($title) ?></h1>
+			<h1>Wikebec Admin :: <?= $this->e($title) ?></h1>
 		</header>
 
 		<section>

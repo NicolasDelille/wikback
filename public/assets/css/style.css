@@ -1,6 +1,11 @@
 body{
 	font:16px sans-serif;
 }
+section{
+	border:1px solid #ccc;
+	border-radius: 5px;
+	padding: 25px;
+}
 table, thead, tbody, tr, th, td{
 	text-align: center;
 	padding: 5px;
@@ -11,6 +16,10 @@ table, thead, tbody, tr, th, td{
 }
 thead{
 	font-size: 1.2rem;
+}
+h1{
+	font-weight: bold;
+	font-size: 1.6rem;
 }
 h2{
 	font-size: 1.5rem;
