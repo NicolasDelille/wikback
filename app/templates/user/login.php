@@ -19,8 +19,8 @@
 
 		<div class="form-group">
 			<input class="btn btn-success" type="submit" value="Connexion"> 
+			<a class="btn btn-danger" href="<?php echo $this->url('home')?>">Retour à l'accueil</a>
 		</div>
-
 			
 	</form>
 

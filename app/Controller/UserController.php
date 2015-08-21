@@ -8,6 +8,13 @@ use \Manager\UserManager;
 
 class UserController extends Controller
 {
+	public function home()
+	{
+		$userManager = new UserManager();
+
+		$this->show('user/home');
+	}
+
 	public function login()
 	{
 		$authentificationManager = new AuthentificationManager();
@@ -25,9 +32,9 @@ class UserController extends Controller
 
 			// Validation des données
 			if (empty($username)) {
-					$usernameError = "Veuillez indiquer un pseudo !";
+				$usernameError = "Veuillez indiquer un pseudo !";
 			}
-
+			
 			if (empty($password)) {
 					$passwordError = "Veuillez entrer un mot de passe !";
 			}
@@ -44,6 +51,9 @@ class UserController extends Controller
 					$authentificationManager->logUserIn($user);
 
 					$this->redirectToRoute('show_all_terms');
+				}
+				else {
+					$usernameError = "Ce pseudo n'existe pas !";
 				}
 
 			}
@@ -63,7 +73,12 @@ class UserController extends Controller
 	}
 	public function logout()
 	{
-		
+		$authentificationManager = new AuthentificationManager();
+		$userManager = new UserManager();
+		$authentificationManager->logUserOut($w_user);
+
+		$this->redirectToRoute('login');
+
 	}
 	public function register()
 	{
@@ -91,6 +106,11 @@ class UserController extends Controller
 					$usernameError = "Nom d'utilisateur trop court !";
 				}
 
+				// username déjà présent bdd
+				else if ($userManager->usernameExists($username)) {
+					$usernameError = "Ce pseudo est déjà utilisé !";
+				}
+
 				// email valide
 				if (empty($email)) {
 					$emailError = "Veuillez entrer une adresse email !";
@@ -98,6 +118,11 @@ class UserController extends Controller
 
 				else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 					$emailError = "L'adresse email n'est pas valide";
+				}
+
+				// email déjà présent en bdd
+				else if ($userManager->emailExists($email)) {
+					$emailError = "Cet adresse email est déjà utilisée !";
 				}
 
 				// mot de passe valide

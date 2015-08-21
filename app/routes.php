@@ -1,6 +1,7 @@
 <?php
 	
 	$w_routes = array(
+		['GET', '/', 'User#home', 'home'],
 		['GET|POST', '/admin/connexion/', 'User#login', 'login'],
 		['GET|POST', '/admin/deconnexion/', 'User#logout', 'logout'],
 
@@ -11,3 +12,4 @@
 		['GET', '/admin/termes/montrer-mdj/', 'Term#showWotd', 'show_wotd'],
 		['GET|POST', '/admin/administrateurs/inscription/', 'User#register', 'register_administrator'],
 	);
+		
