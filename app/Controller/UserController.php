@@ -185,4 +185,6 @@ class UserController extends Controller
 
 		$this->show('user/register_administrator');
 	}
+
 }
+	

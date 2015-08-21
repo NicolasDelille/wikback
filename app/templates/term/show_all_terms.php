@@ -19,6 +19,7 @@
 		<div class="span6">
 			<a href="<?= $this->url('show_wotd') ?>" title="Voir le mot du jour">Voir le mot du jour</a>
 			<a href="<?= $this->url('register_administrator')?>">Ajouter un administrateur</a>
+			<a href="<?= $this->url('export_database')?>">Exporter la base de données au format JSON</a>
 		</div>
 	</div>
 	
