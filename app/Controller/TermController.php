@@ -13,6 +13,7 @@ class TermController extends Controller
 	 */
 	public function showAll()
 	{
+		$this->allowTo('admin');
 		$termManager = new \Manager\TermManager();
 		// debug(get_class_methods($termManager));
 		$terms = $termManager->findAll("modifiedDate", "DESC");
@@ -24,6 +25,7 @@ class TermController extends Controller
 
 	public function delete($id)
 	{
+		$this->allowTo('admin');
 		$termManager = new \Manager\TermManager();
 		$termManager->delete($id);
 
@@ -33,6 +35,7 @@ class TermController extends Controller
 
 	public function edit($id)
 	{
+		$this->allowTo('admin');
 		// récupérer en bdd le terme à modifier
 		$termManager = new \Manager\TermManager();
 		
@@ -74,6 +77,7 @@ class TermController extends Controller
 
 	public function changeWotd()
 	{
+		$this->allowTo('admin');
 		$termManager = new \Manager\TermManager();
 		$wotd = $termManager->getCurrentWordOfTheDay();
 		
@@ -91,6 +95,7 @@ class TermController extends Controller
 	}
 	public function showWotd()
 	{
+		$this->allowTo('admin');
 		$termManager = new \Manager\TermManager();
 		$wotd = $termManager->getCurrentWordOfTheDay();
 

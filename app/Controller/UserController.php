@@ -53,7 +53,7 @@ class UserController extends Controller
 					$this->redirectToRoute('show_all_terms');
 				}
 				else {
-					$usernameError = "Ce pseudo n'existe pas !";
+					$usernameError = "Mauvais identifiants !";
 				}
 
 			}
@@ -82,6 +82,7 @@ class UserController extends Controller
 	}
 	public function register()
 	{
+		$this->allowTo('admin');
 		$userManager = new UserManager();
 
 		$usernameError ="";
